@@ -5,7 +5,7 @@
 #include "Engine/GameInstance.h"
 
 #include "DeltaDNAManager.h"
-
+#include "DeltaDNAParams.h"
 
 #include "DeltaDNAGameInstance.generated.h"
 
@@ -14,7 +14,7 @@
  */
 
 UCLASS()
-class FARAWAY_API UDeltaDNAGameInstance : public UGameInstance
+class UDeltaDNAGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
@@ -29,12 +29,24 @@ class FARAWAY_API UDeltaDNAGameInstance : public UGameInstance
 
 	UPROPERTY(EditAnywhere, Category = "DeltaDNA Data")
 		EEnvironment environment;
+	//UPROPERTY(EditAnywhere, Category = "DeltaDNA Data")
+	//	bool useLocalUtcTimestamp;
 	UPROPERTY(EditAnywhere, Category = "DeltaDNA Data")
-		bool useLocalUtcTimestamp;
+		bool bulkEventUseHash;
 
 	DeltaDNAManager * mgr;
 	
 	void Init() override;
+public:
+	UFUNCTION(BlueprintCallable, Category = "DeltaDNA")
+		bool LaunchEvent(UDeltaDNAEvent * dnaEvent);
 
-	void LaunchEvent(DeltaDNAEvent * dnaEvent);
+	UFUNCTION(BlueprintCallable, Category = "DeltaDNA")
+		bool LaunchBulkEvent(UDeltaDNABulkEvent * dnaBulkEvent);
+
+	UFUNCTION(BlueprintCallable, Category = "DeltaDNA", meta = (AutoCreateRefTerm = "params"))
+		UDeltaDNAEvent * CreateDeltaDNAEvent(FString eventName, FString userID, EPlatform platform, bool useLocalUtcTimestamp, bool & success, TArray<FDeltaDNAParam> params, FString eventUUID = "", FString sessionID = "");
+
+	UFUNCTION(BlueprintCallable, Category = "DeltaDNA", meta = (AutoCreateRefTerm = "params"))
+		UDeltaDNABulkEvent * CreateDeltaDNABulkEvent(TArray<UDeltaDNAEvent*> params, bool & success);
 };
