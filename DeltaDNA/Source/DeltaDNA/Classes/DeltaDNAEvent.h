@@ -87,27 +87,27 @@ public:
 		void AddBoolParam(FString key, bool value);
 
 	UFUNCTION(BlueprintPure, Category = "DeltaDNA")
-	static FDeltaDNAParam CreateStringParam(FString key, FString value)
+	static FDeltaDNAParameter CreateStringParam(FString key, FString value)
 	{
-		return FDeltaDNAStringParam(key, value);
+		return FDeltaDNAParameter(key, value);
 	}
 
 	UFUNCTION(BlueprintPure, Category = "DeltaDNA")
-	static FDeltaDNAParam CreateIntParam(FString key, int value)
+	static FDeltaDNAParameter CreateIntParam(FString key, int value)
 	{
-		return FDeltaDNAIntParam(key, value);
+		return FDeltaDNAParameter(key, value);
 	}
 
 	UFUNCTION(BlueprintPure, Category = "DeltaDNA")
-	static FDeltaDNAParam CreateFloatParam(FString key, float value)
+	static FDeltaDNAParameter CreateFloatParam(FString key, float value)
 	{
-		return FDeltaDNAFloatParam(key, value);
+		return FDeltaDNAParameter(key, value);
 	}
 
 	UFUNCTION(BlueprintPure, Category = "DeltaDNA")
-	static FDeltaDNAParam CreateBoolParam(FString key, bool value)
+	static FDeltaDNAParameter CreateBoolParam(FString key, bool value)
 	{
-		return FDeltaDNABoolParam(key, value);
+		return FDeltaDNAParameter(key, value);
 	}
 
 	~UDeltaDNAEvent();

@@ -6,117 +6,70 @@
 
 
 USTRUCT()
-struct DELTADNA_API FDeltaDNAParam
+struct DELTADNA_API FDeltaDNAParameter
 {
 	GENERATED_BODY()
+	
+	enum ParameterType
+	{
+		STRING,
+		INT,
+		FLOAT,
+		BOOL,
+	};
+
 
 	FString Key;
 
-	FDeltaDNAParam()
+	FString stringValue;
+	int intValue;
+	float floatValue;
+	bool boolValue;
+
+	ParameterType type;
+
+	FDeltaDNAParameter()
 	{
 		Key = "";
 	}
 
-	FDeltaDNAParam(FString key)
+	FDeltaDNAParameter(FString key, FString value)
 	{
 		Key = key;
+		stringValue = value;
+		type = ParameterType::STRING;
 	}
 
-	virtual void AddParameterTo(FJsonObject * eventParam) PURE_VIRTUAL(FDeltaDNAParam::AddParameterTo, ;);
-};
-
-USTRUCT()
-struct DELTADNA_API FDeltaDNAStringParam : public FDeltaDNAParam
-{
-	GENERATED_BODY()
-
-	FString Value;
-
-	FDeltaDNAStringParam()
-	{
-		Value = "";
-	}
-
-	FDeltaDNAStringParam(FString key, FString value)
+	FDeltaDNAParameter(FString key, int value)
 	{
 		Key = key;
-		Value = value;
+		intValue = value;
+		type = ParameterType::INT;
 	}
 
-	void AddParameterTo(FJsonObject * eventParam) override
-	{
-		eventParam->SetStringField(Key, Value);
-	}
-};
-
-USTRUCT()
-struct DELTADNA_API FDeltaDNAIntParam : public FDeltaDNAParam
-{
-	GENERATED_BODY()
-
-	int Value;
-
-	FDeltaDNAIntParam()
-	{
-		Value = 0;
-	}
-
-	FDeltaDNAIntParam(FString key, int value)
+	FDeltaDNAParameter(FString key, float value)
 	{
 		Key = key;
-		Value = value;
+		floatValue = value;
+		type = ParameterType::FLOAT;
 	}
 
-	void AddParameterTo(FJsonObject * eventParam) override
-	{
-		eventParam->SetNumberField(Key, Value);
-	}
-};
-
-USTRUCT()
-struct DELTADNA_API FDeltaDNAFloatParam : public FDeltaDNAParam
-{
-	GENERATED_BODY()
-
-	float Value;
-
-	FDeltaDNAFloatParam()
-	{
-		Value = 0;
-	}
-
-	FDeltaDNAFloatParam(FString key, float value)
+	FDeltaDNAParameter(FString key, bool value)
 	{
 		Key = key;
-		Value = value;
+		boolValue = value;
+		type = ParameterType::BOOL;
 	}
 
-	void AddParameterTo(FJsonObject * eventParam) override
+	void AddParameterTo(FJsonObject * eventParam)
 	{
-		eventParam->SetNumberField(Key, Value);
-	}
-};
-
-USTRUCT()
-struct DELTADNA_API FDeltaDNABoolParam : public FDeltaDNAParam
-{
-	GENERATED_BODY()
-
-	bool Value;
-
-	FDeltaDNABoolParam()
-	{
-		Value = false;
-	}
-
-	FDeltaDNABoolParam(FString key, bool value)
-	{
-		Key = key;
-		Value = value;
-	}
-
-	void AddParameterTo(FJsonObject * eventParam) override
-	{
-		eventParam->SetBoolField(Key, Value);
+		if (type == ParameterType::STRING)
+			eventParam->SetStringField(Key, stringValue);
+		else if (type == ParameterType::INT)
+			eventParam->SetNumberField(Key, intValue);
+		else if (type == ParameterType::FLOAT)
+			eventParam->SetNumberField(Key, floatValue);
+		else if (type == ParameterType::BOOL)
+			eventParam->SetBoolField(Key, boolValue);
 	}
 };

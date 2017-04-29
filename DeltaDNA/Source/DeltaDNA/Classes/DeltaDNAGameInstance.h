@@ -45,7 +45,7 @@ public:
 		bool LaunchBulkEvent(UDeltaDNABulkEvent * dnaBulkEvent);
 
 	UFUNCTION(BlueprintCallable, Category = "DeltaDNA", meta = (AutoCreateRefTerm = "params"))
-		UDeltaDNAEvent * CreateDeltaDNAEvent(FString eventName, FString userID, EPlatform platform, bool useLocalUtcTimestamp, bool & success, TArray<FDeltaDNAParam> params, FString eventUUID = "", FString sessionID = "");
+		UDeltaDNAEvent * CreateDeltaDNAEvent(FString eventName, FString userID, EPlatform platform, bool useLocalUtcTimestamp, bool & success, TArray<FDeltaDNAParameter> params, FString eventUUID = "", FString sessionID = "");
 
 	UFUNCTION(BlueprintCallable, Category = "DeltaDNA", meta = (AutoCreateRefTerm = "params"))
 		UDeltaDNABulkEvent * CreateDeltaDNABulkEvent(TArray<UDeltaDNAEvent*> params, bool & success);

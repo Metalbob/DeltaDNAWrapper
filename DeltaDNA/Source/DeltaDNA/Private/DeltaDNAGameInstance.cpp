@@ -22,7 +22,7 @@ UDeltaDNAEvent * UDeltaDNAGameInstance::CreateDeltaDNAEvent(
 	EPlatform platform,
 	bool useLocalUtcTimestamp,
 	bool & success,
-	TArray<FDeltaDNAParam> params,
+	TArray<FDeltaDNAParameter> params,
 	FString eventUUID,
 	FString sessionID)
 {
