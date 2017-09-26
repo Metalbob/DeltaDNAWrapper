@@ -18,6 +18,7 @@ Binaries/
 *.opensdf
 *.opendb
 *.db
+*.odt
 
 *.pidb.meta
 
